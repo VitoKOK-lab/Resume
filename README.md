@@ -14,6 +14,14 @@
 | `image-slot.js` | `<image-slot>` 自訂元素：使用者可拖放圖片，並透過 sidecar 持久化 |
 | `.image-slots.state.json` | 已填入圖片的持久化資料（base64 WebP） |
 
+## 線上瀏覽
+
+本專案透過 GitHub Actions 自動部署到 GitHub Pages。每次推送到 `main` 都會重新發佈：
+
+> https://vitokok-lab.github.io/Resume/
+
+`index.html` 即為主簡歷頁面;`.nojekyll` 確保 `.image-slots.state.json` 等檔案會被原樣發佈,讓嵌入的圖片正常顯示(線上為唯讀,無法再拖曳更換)。
+
 ## 本地預覽
 
 由於 `image-slot.js` 透過 `fetch()` 讀取 `.image-slots.state.json`，請以 HTTP 伺服器開啟，避免 `file://` 的 CORS 限制：

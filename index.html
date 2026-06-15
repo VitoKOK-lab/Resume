@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vito · 短影音策略顧問 · LUXKEY</title>
+  <link rel="stylesheet" href="colors_and_type.css">
+  <script src="image-slot.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: #fff; color: var(--ink-900); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+
+    /* MASTHEAD */
+    .masthead { background: var(--ink-900); height: 52px; padding: 0 48px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--ink-700); }
+    .masthead__wm { font-family: var(--font-logo); font-weight: 300; font-size: 16px; letter-spacing: 0.42em; text-indent: 0.42em; color: var(--cream-50); }
+    .masthead__link { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.10em; color: var(--ink-400); }
+
+    /* HERO */
+    .hero { padding: 80px 48px 72px; background: #fff; border-bottom: 1px solid #EAEAE6; }
+    .hero__inner { max-width: 1160px; margin: 0 auto; }
+    .hero__eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 48px; }
+    .hero__co { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-400); }
+    .hero__dot { width: 4px; height: 4px; border-radius: 50%; background: var(--vermillion-500); flex-shrink: 0; }
+    .hero__loc { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.10em; color: var(--ink-400); }
+    .hero__headline { font-family: var(--font-display); font-weight: 800; font-size: clamp(2.8rem, 6vw, 5.2rem); line-height: 1.0; letter-spacing: -0.035em; color: var(--ink-900); margin-bottom: 28px; max-width: 18ch; }
+    .hero__headline em { font-style: normal; color: var(--vermillion-500); }
+    .hero__mid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: end; margin-bottom: 56px; }
+    .hero__sub { font-size: 19px; line-height: 1.72; color: var(--ink-500); max-width: 44ch; }
+    .hero__tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; align-items: flex-end; }
+    .hero__principal { display: flex; align-items: center; gap: 20px; padding-top: 28px; border-top: 1px solid #EAEAE6; }
+    .hero__principal-name { font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; letter-spacing: -0.02em; color: var(--ink-900); }
+    .hero__principal-sep { width: 1px; height: 18px; background: #DDDDD8; flex-shrink: 0; }
+    .hero__principal-role { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-400); }
+    .tag { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase; padding: 8px 14px; border-radius: 999px; border: 1px solid #DDDDD8; color: var(--ink-600); background: #FAFAF8; }
+    .tag--v { border-color: var(--vermillion-300); color: var(--vermillion-700); background: var(--vermillion-50); }
+    .tag--t { border-color: var(--teal-300); color: var(--teal-700); background: var(--teal-50); }
+    .tag--c { border-color: var(--cyan-300); color: var(--cyan-700); background: var(--cyan-50); }
+
+    /* CAPITAL */
+    .capital { background: var(--ink-900); padding: 80px 48px; border-bottom: 1px solid var(--ink-700); }
+    .capital__inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 1fr 240px; gap: 72px; align-items: center; }
+    .capital__label { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cyan-400); margin-bottom: 16px; }
+    .capital__title { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.8rem, 3.5vw, 2.8rem); color: var(--cream-50); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 20px; }
+    .capital__body { font-size: 17px; line-height: 1.75; color: var(--ink-200); max-width: 52ch; }
+    .capital__mark { text-align: right; }
+    .capital__mark-line { font-family: var(--font-display); font-weight: 800; font-size: clamp(3rem, 5vw, 4.4rem); letter-spacing: -0.04em; line-height: 0.88; display: block; }
+    .capital__mark-sub { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-500); margin-top: 12px; display: block; }
+
+    /* ABOUT */
+    .about { padding: 88px 48px; background: #fff; border-bottom: 1px solid #EAEAE6; }
+    .about__inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 320px 1fr; gap: 80px; align-items: start; }
+    .about__label { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--vermillion-500); margin-bottom: 20px; }
+    .about__headline { font-family: var(--font-display); font-weight: 800; font-size: clamp(2.2rem, 4vw, 3.2rem); color: var(--ink-900); letter-spacing: -0.035em; line-height: 1.05; }
+    .about__headline em { font-style: normal; color: var(--vermillion-500); }
+    .about__text { font-size: 1.2rem; line-height: 1.8; color: var(--ink-600); }
+    .about__text strong { color: var(--ink-900); font-weight: 700; }
+    .about__text p + p { margin-top: 18px; }
+
+    /* FEATURE BLOCK — 大圖 + 文字 */
+    .feature { border-bottom: 1px solid #EAEAE6; }
+    .feature__grid { display: grid; grid-template-columns: 1fr 1fr; min-height: 480px; }
+    .feature__img { overflow: hidden; }
+    .feature__copy { padding: 72px 60px; display: flex; flex-direction: column; justify-content: center; background: #FAFAF8; }
+    .feature__copy--dark { background: var(--ink-900); }
+    .feature__label { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--vermillion-500); margin-bottom: 16px; }
+    .feature__copy--dark .feature__label { color: var(--cyan-400); }
+    .feature__title { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.6rem, 2.8vw, 2.4rem); letter-spacing: -0.025em; line-height: 1.15; color: var(--ink-900); margin-bottom: 18px; }
+    .feature__copy--dark .feature__title { color: var(--cream-50); }
+    .feature__body { font-size: 16px; line-height: 1.75; color: var(--ink-500); max-width: 38ch; }
+    .feature__copy--dark .feature__body { color: var(--ink-200); }
+    .feature__note { margin-top: 24px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.10em; color: var(--ink-400); border-top: 1px solid #EAEAE6; padding-top: 18px; }
+    .feature__copy--dark .feature__note { color: var(--ink-500); border-top-color: var(--ink-700); }
+
+    /* PHOTO STRIP */
+    .photos { background: var(--ink-900); border-top: 1px solid var(--ink-700); border-bottom: 1px solid var(--ink-700); overflow: hidden; }
+    .photos__grid { display: grid; grid-template-columns: repeat(3, 1fr); height: 340px; }
+    .photos__item { position: relative; overflow: hidden; }
+    .photos__item + .photos__item { border-left: 1px solid var(--ink-700); }
+    .photos__caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 14px 20px; background: linear-gradient(to top, rgba(20,18,16,0.9) 0%, transparent 100%); font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-300); pointer-events: none; }
+
+    /* PROCESS */
+    .process { background: var(--ink-900); padding: 80px 48px; }
+    .process__inner { max-width: 1160px; margin: 0 auto; }
+    .process__header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 48px; flex-wrap: wrap; gap: 12px; }
+    .process__label { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cyan-400); }
+    .process__title { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.5rem, 2.8vw, 2.2rem); color: var(--cream-50); letter-spacing: -0.025em; margin-top: 8px; }
+    .process__note { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; color: var(--ink-400); align-self: flex-end; }
+    .loop { display: grid; grid-template-columns: 1fr 40px 1fr 40px 1fr; align-items: center; }
+    .loop__arrow { display: flex; align-items: center; justify-content: center; color: var(--ink-500); }
+    .loop__arrow svg { display: block; }
+    .loop__step { background: var(--ink-800); border: 1px solid var(--ink-700); border-radius: 6px; padding: 36px 32px; }
+    .loop__step--mid { background: #0D2D32; border-color: var(--teal-800); }
+    .loop__n { font-family: var(--font-display); font-weight: 800; font-size: 3.5rem; line-height: 0.85; letter-spacing: -0.04em; color: var(--ink-600); margin-bottom: 20px; }
+    .loop__step--mid .loop__n { color: var(--teal-800); }
+    .loop__verb { font-family: var(--font-display); font-weight: 700; font-size: 1.6rem; color: var(--cream-50); letter-spacing: -0.02em; margin-bottom: 14px; }
+    .loop__sub { font-family: var(--font-mono); font-size: 13px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--teal-400); margin-bottom: 14px; }
+    .loop__step--mid .loop__sub { color: var(--cyan-400); }
+    .loop__desc { font-size: 16px; line-height: 1.7; color: var(--ink-200); }
+    .loop__repeat { grid-column: 1 / -1; margin-top: 20px; text-align: center; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; color: var(--ink-500); display: flex; align-items: center; justify-content: center; gap: 10px; }
+    .loop__repeat::before, .loop__repeat::after { content: ''; flex: 1; height: 1px; background: var(--ink-700); }
+
+    /* RESULTS */
+    .results { background: #fff; padding: 88px 48px; border-bottom: 1px solid #EAEAE6; }
+    .results__inner { max-width: 1160px; margin: 0 auto; }
+    .results__header { margin-bottom: 48px; }
+    .results__label { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--vermillion-500); margin-bottom: 8px; }
+    .results__title { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.6rem, 3vw, 2.4rem); color: var(--ink-900); letter-spacing: -0.025em; }
+    .result-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .result-card { background: #FAFAF8; border: 1px solid #EAEAE6; border-radius: 6px; padding: 36px 32px; border-top: 3px solid var(--vermillion-500); }
+    .result-card--t { border-top-color: var(--teal-500); }
+    .result-card--c { border-top-color: var(--cyan-400); }
+    .result-card__num { font-family: var(--font-display); font-weight: 800; font-size: clamp(2.4rem, 4vw, 3.6rem); letter-spacing: -0.04em; line-height: 0.9; color: var(--ink-900); margin-bottom: 16px; }
+    .result-card__what { font-weight: 700; font-size: 17px; color: var(--ink-900); margin-bottom: 8px; }
+    .result-card__how { font-size: 16px; line-height: 1.65; color: var(--ink-500); }
+
+    /* CASE STUDIES */
+    .cases { background: #FAFAF8; padding: 88px 48px; border-top: 1px solid #EAEAE6; border-bottom: 1px solid #EAEAE6; }
+    .cases__inner { max-width: 1160px; margin: 0 auto; }
+    .cases__header { margin-bottom: 44px; }
+    .cases__label { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal-600); margin-bottom: 8px; }
+    .cases__title { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.6rem, 3vw, 2.4rem); color: var(--ink-900); letter-spacing: -0.025em; }
+    .cases__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .case-card { background: #fff; border: 1px solid #EAEAE6; border-radius: 6px; overflow: hidden; }
+    .case-card__img { overflow: hidden; height: 240px; }
+    .case-card__body { padding: 28px 28px 32px; }
+    .case-card__tag { font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--vermillion-500); margin-bottom: 10px; }
+    .case-card__title { font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; color: var(--ink-900); letter-spacing: -0.02em; margin-bottom: 10px; }
+    .case-card__desc { font-size: 15px; line-height: 1.7; color: var(--ink-500); }
+
+    /* SERVICES */
+    .services { background: #fff; padding: 88px 48px; border-bottom: 1px solid #EAEAE6; }
+    .services__inner { max-width: 1160px; margin: 0 auto; }
+    .services__header { margin-bottom: 48px; }
+    .services__label { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal-600); margin-bottom: 8px; }
+    .services__title { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.6rem, 3vw, 2.4rem); color: var(--ink-900); letter-spacing: -0.025em; }
+    .svc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .svc { background: #FAFAF8; border: 1px solid #EAEAE6; border-radius: 4px; padding: 32px 28px; transition: transform 0.18s var(--ease-out), box-shadow 0.18s var(--ease-out); }
+    .svc:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .svc__num { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; color: var(--ink-300); margin-bottom: 14px; }
+    .svc__title { font-family: var(--font-display); font-weight: 700; font-size: 1.25rem; color: var(--ink-900); letter-spacing: -0.015em; margin-bottom: 10px; }
+    .svc__body { font-size: 16px; line-height: 1.7; color: var(--ink-500); }
+
+    /* CREDENTIALS */
+    .credentials { background: #FAFAF8; padding: 88px 48px; border-bottom: 1px solid #EAEAE6; }
+    .credentials__inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: 280px 1fr; gap: 72px; align-items: start; }
+    .credentials__label { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--vermillion-500); margin-bottom: 12px; }
+    .credentials__title { font-family: var(--font-display); font-weight: 700; font-size: 1.6rem; line-height: 1.2; color: var(--ink-900); letter-spacing: -0.025em; }
+    .credentials__note { margin-top: 20px; font-size: 15px; line-height: 1.65; color: var(--ink-400); }
+    .cred-list { list-style: none; }
+    .cred-item { display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: baseline; padding: 16px 0; border-bottom: 1px solid #DDDDD8; }
+    .cred-item:first-child { border-top: 1px solid #DDDDD8; }
+    .cred-name { font-weight: 600; font-size: 17px; color: var(--ink-900); }
+    .cred-role { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; color: var(--ink-400); text-align: right; white-space: nowrap; }
+
+    /* TEAM */
+    .team { background: var(--cream-100); padding: 44px 48px; border-bottom: 1px solid #DDD4C4; }
+    .team__inner { max-width: 1160px; margin: 0 auto; display: flex; align-items: center; gap: 40px; }
+    .team__label { font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.20em; text-transform: uppercase; color: var(--ink-500); white-space: nowrap; flex-shrink: 0; }
+    .team__sep { width: 1px; height: 32px; background: var(--cream-300); flex-shrink: 0; }
+    .team__roles { display: flex; flex-wrap: wrap; gap: 10px; flex: 1; }
+    .role-tag { font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 16px; border-radius: 999px; border: 1px solid var(--ink-900); color: var(--ink-900); background: transparent; }
+    .role-tag--fill { background: var(--ink-900); color: var(--cream-50); }
+
+    /* CTA */
+    .cta-band { background: var(--vermillion-500); padding: 88px 48px; text-align: center; }
+    .cta-band__head { font-family: var(--font-display); font-weight: 700; font-size: clamp(2rem, 4.5vw, 3.4rem); color: var(--paper); letter-spacing: -0.03em; line-height: 1.1; max-width: 24ch; margin: 0 auto 12px; }
+    .cta-band__sub { font-size: 16px; color: rgba(245,239,226,0.8); margin-bottom: 36px; }
+    .cta-contact { display: flex; flex-wrap: wrap; justify-content: center; gap: 0; }
+    .cta-contact__item { display: flex; flex-direction: column; align-items: center; gap: 7px; padding: 0 40px; }
+    .cta-contact__item + .cta-contact__item { border-left: 1px solid rgba(245,239,226,0.2); }
+    .cta-contact__label { font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(245,239,226,0.5); }
+    .cta-contact__value { font-family: var(--font-display); font-weight: 600; font-size: 1.1rem; color: var(--paper); letter-spacing: -0.01em; }
+    .cta-contact__value:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+    /* FOOTER */
+    .footer { background: var(--ink-900); padding: 28px 48px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--ink-700); }
+    .footer__wm { font-family: var(--font-logo); font-weight: 300; font-size: 14px; letter-spacing: 0.40em; text-indent: 0.40em; color: var(--ink-500); }
+    .footer__note { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; color: var(--ink-600); }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .hero, .capital, .about, .process, .results, .cases, .services, .credentials, .team, .cta-band { padding-left: 24px; padding-right: 24px; }
+      .masthead { padding: 0 24px; }
+      .hero__mid { grid-template-columns: 1fr; gap: 28px; }
+      .hero__tags { justify-content: flex-start; }
+      .hero__principal { flex-wrap: wrap; gap: 12px; }
+      .capital__inner { grid-template-columns: 1fr; gap: 28px; }
+      .capital__mark { text-align: left; }
+      .about__inner { grid-template-columns: 1fr; gap: 36px; }
+      .feature__grid { grid-template-columns: 1fr; }
+      .feature__img { height: 260px; }
+      .feature__copy { padding: 48px 28px; }
+      .photos__grid { grid-template-columns: 1fr; height: auto; }
+      .loop { grid-template-columns: 1fr; }
+      .loop__arrow { display: none; }
+      .loop__step { border-radius: 0; border-left: none; border-right: none; border-top: none; }
+      .loop__step:first-child { border-radius: 6px 6px 0 0; border-top: 1px solid var(--ink-700); }
+      .loop__step:last-child { border-radius: 0 0 6px 6px; }
+      .result-grid { grid-template-columns: 1fr; }
+      .cases__grid { grid-template-columns: 1fr; }
+      .svc-grid { grid-template-columns: 1fr; }
+      .credentials__inner { grid-template-columns: 1fr; gap: 36px; }
+      .team__inner { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .team__sep { display: none; }
+      .cta-contact { gap: 24px; }
+      .cta-contact__item { border-left: none; padding: 0; }
+      .footer { flex-direction: column; gap: 10px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MASTHEAD -->
+  <header class="masthead">
+    <span class="masthead__wm">LUXKEY</span>
+    <span class="masthead__link">luxkey.international</span>
+  </header>
+
+  <!-- BANNER -->
+  <div style="width:100%;overflow:hidden;border-bottom:1px solid #EAEAE6;line-height:0;">
+    <image-slot id="banner-main" style="width:100%;height:480px;" shape="rect"
+      placeholder="主視覺 Banner — 拖曳 AI 圖片到這裡（建議橫式寬幅圖）"></image-slot>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__inner">
+      <div class="hero__eyebrow">
+        <span class="hero__co">金曜石國際 · LUXKEY International</span>
+        <div class="hero__dot"></div>
+        <span class="hero__loc">台北市信義區</span>
+      </div>
+      <h1 class="hero__headline">用投資的眼光，<br>做你的<em>品牌</em>跟<em>流量</em>。</h1>
+      <div class="hero__mid">
+        <p class="hero__sub">品牌是資產、流量是現金流、內容是複利。我們用這一套邏輯去做商業企劃、行銷策略、短影音——每一個決策都得有投資回報的邏輯。</p>
+        <div class="hero__tags">
+          <span class="tag tag--v">短影音製作</span>
+          <span class="tag tag--t">商業企劃</span>
+          <span class="tag tag--c">行銷策略</span>
+          <span class="tag">創投研究</span>
+          <span class="tag">AI 加速</span>
+          <span class="tag">私域經營</span>
+        </div>
+      </div>
+      <div class="hero__principal">
+        <span class="hero__principal-name">Vito</span>
+        <div class="hero__principal-sep"></div>
+        <span class="hero__principal-role">主理人 · 短影音策略顧問</span>
+        <div class="hero__principal-sep"></div>
+        <span class="hero__principal-role">luxkey.international</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAPITAL MARKETS -->
+  <section class="capital">
+    <div class="capital__inner">
+      <div>
+        <div class="capital__label">01 — CAPITAL MARKETS THINKING · 資本市場思維</div>
+        <h2 class="capital__title">投資人怎麼看一個品牌，<br>我們就怎麼幫你建它。</h2>
+        <p class="capital__body">我們用資本市場的邏輯思考商業、行銷、流量——品牌是資產、受眾是護城河、內容是複利。新創募資、品牌建立、流量操盤，走的是同一條線。從商業模式梳理到募資簡報，知道評審和 LP 真正在看什麼。</p>
+      </div>
+      <div class="capital__mark">
+        <span class="capital__mark-line" style="color:var(--teal-400);">Pitch</span>
+        <span class="capital__mark-line" style="color:var(--vermillion-400);">Deck</span>
+        <span class="capital__mark-sub">募資簡報</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about">
+    <div class="about__inner">
+      <div>
+        <div class="about__label">02 — 我在做什麼</div>
+        <h2 class="about__headline">看懂受眾
+才是真本事</h2>
+      </div>
+      <div class="about__text">
+        <p>投資人看一個案子，看的是成長性、可複製性、負負得正的商業邏輯。我們看你的品牌，用的是同一種眼光。</p>
+        <p>流量不是目標，是結果。真正的目標是：<strong>建立一個讓人看得懂、信得過、幫得到你的品牌</strong>。每一支影片都是複利——現在做的內容，往後每一天都在幫你工作。</p>
+        <p>這就是為什麼我們不只做內容——我們從商業本質入手，用資本市場的思維訂定策略，再用實戰的方式大量產出、看數據、反覆優化。<strong>商業思維 × 內容執行</strong>，兩件事一起做。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE 1 — 核心故事 -->
+  <div class="feature">
+    <div class="feature__grid">
+      <div class="feature__img">
+        <image-slot id="feature-a-img" style="width:100%;height:100%;min-height:480px;" shape="rect"
+          placeholder="品牌改造案例圖片 — 拖曳 AI 圖片到這裡"></image-slot>
+      </div>
+      <div class="feature__copy">
+        <div class="feature__label">核心案例 · Brand Transformation</div>
+        <h3 class="feature__title">從 CIS 到 AI，<br>一次把整個品牌升級到位。</h3>
+        <p class="feature__body">我們有一個成功案子：從品牌識別系統（CIS）重建開始，做年度策略規劃、優化整個工作流，到短影音內容創造，全程引入 AI 加速執行。不是局部微調，是整套升級——最終<strong>營業額提升 50%</strong>。</p>
+        <div class="feature__note">CIS 重建 · 年度策略 · 工作流優化 · 內容創造 · AI 全面引入</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROCESS LOOP -->
+  <section class="process">
+    <div class="process__inner">
+      <div class="process__header">
+        <div>
+          <div class="process__label">03 — THE METHOD</div>
+          <h2 class="process__title" style="font-size:clamp(2rem,4vw,3.2rem);letter-spacing:-0.04em;">FLYWHEEL</h2>
+        </div>
+        <span class="process__note">每一輪都比上一輪更準，不是做一次就完</span>
+      </div>
+      <div class="loop">
+        <div class="loop__step">
+          <div class="loop__n">01</div>
+          <div class="loop__sub">大量產出</div>
+          <h3 class="loop__verb">SHIP</h3>
+          <p class="loop__desc">每個月固定出大量內容，不等靈感、不等完美。有東西出去，才有數據可以看。影片少，什麼都分析不了。</p>
+        </div>
+        <div class="loop__arrow">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+        </div>
+        <div class="loop__step loop__step--mid">
+          <div class="loop__n">02</div>
+          <div class="loop__sub">數據分析</div>
+          <h3 class="loop__verb">SIGNAL</h3>
+          <p class="loop__desc">完播率、互動、轉換，數字會直接告訴你什麼有效、什麼在浪費時間。不靠感覺，靠數據說話。</p>
+        </div>
+        <div class="loop__arrow">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+        </div>
+        <div class="loop__step">
+          <div class="loop__n">03</div>
+          <div class="loop__sub">持續優化</div>
+          <h3 class="loop__verb">SCALE</h3>
+          <p class="loop__desc">有效的方向多做，沒效的快改。每一輪都比上一輪更準——這樣累積下來，流量才會越做越穩。</p>
+        </div>
+        <div class="loop__repeat">然後回到第一步，繼續做</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="results">
+    <div class="results__inner">
+      <div class="results__header">
+        <div class="results__label">04 — 實際成績</div>
+        <h2 class="results__title">做出來的數字</h2>
+      </div>
+      <div class="result-grid">
+        <div class="result-card">
+          <div class="result-card__num">50萬<br><span style="font-size:0.6em;opacity:0.5;">–</span><br>300萬</div>
+          <div class="result-card__what">每個月的觀看次數</div>
+          <p class="result-card__how">FB、IG、YouTube、TikTok 加起來算。長期持續做，流量越來越穩，不靠單支爆款。</p>
+        </div>
+        <div class="result-card result-card--t">
+          <div class="result-card__num">9,300+</div>
+          <div class="result-card__what">固定追蹤的真實受眾</div>
+          <p class="result-card__how">不是一次性流量，是真正持續追蹤、看到就點的人。這些人才是品牌最值錢的資產。</p>
+        </div>
+        <div class="result-card result-card--c">
+          <div class="result-card__num">1,000+</div>
+          <div class="result-card__what">月均訂單轉換峰值</div>
+          <p class="result-card__how">有更多細節數據可以聊，不同客戶、不同產業成績不一樣，直接問我最快。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE 2 — 合作方式 -->
+  <div class="feature">
+    <div class="feature__grid">
+      <div class="feature__copy feature__copy--dark">
+        <div class="feature__label">合作方式 · How We Work</div>
+        <h3 class="feature__title">兩種方式合作
+</h3>
+        <p class="feature__body">你可以選擇讓我們<strong>全程操盤</strong>——策略、執行、數據、優化，整個流程我們負責，你只要確認方向。也可以選擇我們擔任<strong>顧問角色</strong>——你有自己的團隊，我們從旁協助制定策略、把關內容品質、解讀數據。哪一種都行，依你現在的狀態決定。</p>
+        <div style="display:flex;gap:12px;margin-top:24px;flex-wrap:wrap;">
+          <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:14px 18px;flex:1;min-width:140px;">
+            <div style="font-family:var(--font-mono);font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--cyan-400);margin-bottom:8px;">操盤手</div>
+            <div style="font-size:15px;line-height:1.6;color:var(--ink-100);">策略 + 執行全包<br>你確認方向就好</div>
+          </div>
+          <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:4px;padding:14px 18px;flex:1;min-width:140px;">
+            <div style="font-family:var(--font-mono);font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--vermillion-400);margin-bottom:8px;">顧問協助</div>
+            <div style="font-size:15px;line-height:1.6;color:var(--ink-100);">你有團隊<br>我們把關策略品質</div>
+          </div>
+        </div>
+      </div>
+      <div class="feature__img">
+        <image-slot id="feature-b-img" style="width:100%;height:100%;min-height:480px;" shape="rect"
+          placeholder="合作方式圖片 — 拖曳 AI 圖片到這裡"></image-slot>
+      </div>
+    </div>
+  </div>
+
+  <!-- CASE STUDIES -->
+  <section class="cases">
+    <div class="cases__inner">
+      <div class="cases__header">
+        <div class="cases__label">05 — 精選案例</div>
+        <h2 class="cases__title">實際做過的事</h2>
+      </div>
+      <div class="cases__grid">
+        <div class="case-card">
+          <div class="case-card__img">
+            <image-slot id="case-a-img" style="width:100%;height:240px;" shape="rect"
+              placeholder="政治人物案例圖片 — 拖曳到這裡"></image-slot>
+          </div>
+          <div class="case-card__body">
+            <div class="case-card__tag">政治人物 · 個人品牌</div>
+            <h3 class="case-card__title">政治人物數位形象建立</h3>
+            <p class="case-card__desc">從零開始建立數位形象，透過知識型短影音讓選民認識候選人的專業背景與政策立場，不靠對立衝突，靠真實說服力累積信任。</p>
+          </div>
+        </div>
+        <div class="case-card">
+          <div class="case-card__img">
+            <image-slot id="case-b-img" style="width:100%;height:240px;" shape="rect"
+              placeholder="療癒個人 IP 案例圖片 — 拖曳到這裡"></image-slot>
+          </div>
+          <div class="case-card__body">
+            <div class="case-card__tag">療癒 · 個人 IP</div>
+            <h3 class="case-card__title">療癒系個人 IP 打造</h3>
+            <p class="case-card__desc">將創作者的療癒理念轉化為系列短影音內容，建立獨特的視覺語言與說話風格，長期累積私域受眾，從內容到私域變現形成完整閉環。</p>
+          </div>
+        </div>
+        <div class="case-card">
+          <div class="case-card__img">
+            <image-slot id="case-c-img" style="width:100%;height:240px;" shape="rect"
+              placeholder="商業顧問案例圖片 — 拖曳到這裡"></image-slot>
+          </div>
+          <div class="case-card__body">
+            <div class="case-card__tag">商業顧問 · B2B</div>
+            <h3 class="case-card__title">商業顧問個人品牌經營</h3>
+            <p class="case-card__desc">把多年商業顧問經驗轉化為每週持續輸出的談話型短影音，讓潛在客戶在找上門之前就已經信任你，縮短成交週期，提升客單價。</p>
+          </div>
+        </div>
+        <div class="case-card">
+          <div class="case-card__img">
+            <image-slot id="case-d-img" style="width:100%;height:240px;" shape="rect"
+              placeholder="珠寶創辦人 IP 案例圖片 — 拖曳到這裡"></image-slot>
+          </div>
+          <div class="case-card__body">
+            <div class="case-card__tag">珠寶 · 創辦人 IP</div>
+            <h3 class="case-card__title">珠寶品牌創辦人 IP 建立</h3>
+            <p class="case-card__desc">讓創辦人成為品牌最強的媒體資產，透過創辦人視角的短影音說品牌故事、工藝細節、選材哲學，建立高端品牌的可信度與溢價空間。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services">
+    <div class="services__inner">
+      <div class="services__header">
+        <div class="services__label">06 — 我能幫你做什麼</div>
+        <h2 class="services__title">從想什麼到拍什麼，一起做到有結果</h2>
+      </div>
+      <div class="svc-grid">
+        <div class="svc">
+          <div class="svc__num">01</div>
+          <h3 class="svc__title">幫你想好拍什麼方向</h3>
+          <p class="svc__body">不是給你一份模板讓你自己填，是真的研究你的品牌、你的受眾、你的競品，幫你找出最適合你的內容定位和發布節奏。</p>
+        </div>
+        <div class="svc">
+          <div class="svc__num">02</div>
+          <h3 class="svc__title">拍出讓人信任你的短影音</h3>
+          <p class="svc__body">知識型、聊天型，把你懂的事情說清楚、說有趣，讓看的人覺得「這個人真的行」——說服力才是最大的流量密碼。</p>
+        </div>
+        <div class="svc">
+          <div class="svc__num">03</div>
+          <h3 class="svc__title">所有平台同步上，一個都不漏</h3>
+          <p class="svc__body">FB、IG、YouTube、TikTok 全部跑，每個月看哪個平台效果最好，資源往那邊集中。</p>
+        </div>
+        <div class="svc">
+          <div class="svc__num">04</div>
+          <h3 class="svc__title">用 AI 工具讓整個流程快三倍</h3>
+          <p class="svc__body">自己做的 AI 輔助系統，腳本生成、數據整理、優化建議，讓同樣的時間產出更多內容，效率是競爭優勢。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CREDENTIALS -->
+  <section class="credentials">
+    <div class="credentials__inner">
+      <div>
+        <div class="credentials__label">07 — 顧問資歷</div>
+        <h2 class="credentials__title">Vito 做過的事，<br>都在這裡。</h2>
+        <p class="credentials__note">橫跨資本市場、政府、學術、產業，每一個都是真的進去做過、不是掛名。</p>
+      </div>
+      <ul class="cred-list">
+        <li class="cred-item"><span class="cred-name">VC 創投研究員</span><span class="cred-role">創投研究</span></li>
+        <li class="cred-item"><span class="cred-name">創業、募資講師</span><span class="cred-role">資本市場輔導</span></li>
+        <li class="cred-item"><span class="cred-name">輔導上市顧問</span><span class="cred-role">資本市場</span></li>
+        <li class="cred-item"><span class="cred-name">經濟部青創圓夢網</span><span class="cred-role">創業顧問</span></li>
+        <li class="cred-item"><span class="cred-name">中原大學 100K 創業競賽</span><span class="cred-role">評審</span></li>
+        <li class="cred-item"><span class="cred-name">中原大學創新創業</span><span class="cred-role">業師</span></li>
+        <li class="cred-item"><span class="cred-name">鶯歌產業風貌創新計畫</span><span class="cred-role">講師</span></li>
+        <li class="cred-item"><span class="cred-name">安東青創基地</span><span class="cred-role">開店顧問</span></li>
+        <li class="cred-item"><span class="cred-name">中壢青創指揮部</span><span class="cred-role">新創業師</span></li>
+        <li class="cred-item"><span class="cred-name">勞動部南方創客基地</span><span class="cred-role">創業講師</span></li>
+        <li class="cred-item"><span class="cred-name">桃園市新住民培力中心</span><span class="cred-role">顧問</span></li>
+        <li class="cred-item"><span class="cred-name">苗栗產業創新推動中心</span><span class="cred-role">開店講師</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <div class="team">
+    <div class="team__inner">
+      <div class="team__label">專職團隊分工</div>
+      <div class="team__sep"></div>
+      <div class="team__roles">
+        <span class="role-tag role-tag--fill">企劃</span>
+        <span class="role-tag">腳本</span>
+        <span class="role-tag">拍攝製作</span>
+        <span class="role-tag">剪輯後製</span>
+        <span class="role-tag">廣告投放</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <section class="cta-band">
+    <h2 class="cta-band__head">打造長久個人品牌</h2>
+    <p class="cta-band__sub">讓我們幫您量身定作</p>
+    <div class="cta-contact">
+      <div class="cta-contact__item">
+        <span class="cta-contact__label">Email</span>
+        <a href="mailto:taiwanstore365@gmail.com" class="cta-contact__value">taiwanstore365@gmail.com</a>
+      </div>
+      <div class="cta-contact__item">
+        <span class="cta-contact__label">公司</span>
+        <span class="cta-contact__value">金曜石國際股份有限公司</span>
+      </div>
+      <div class="cta-contact__item">
+        <span class="cta-contact__label">地址</span>
+        <span class="cta-contact__value">110 台北市信義區信義路四段 458 號 6 樓</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <span class="footer__wm">LUXKEY</span>
+    <span class="footer__note">金曜石國際股份有限公司 · 110 台北市信義區信義路四段 458 號 6 樓 · taiwanstore365@gmail.com</span>
+  </footer>
+
+</body>
+</html>
